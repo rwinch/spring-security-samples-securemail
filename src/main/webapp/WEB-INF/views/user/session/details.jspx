@@ -1,0 +1,46 @@
+<jsp:root
+   xmlns:jsp="http://java.sun.com/JSP/Page"
+   xmlns:spring="http://www.springframework.org/tags"
+   xmlns:c="http://java.sun.com/jsp/jstl/core"
+   xmlns:form="http://www.springframework.org/tags/form"
+   version="2.0">
+   <jsp:directive.page language="java" contentType="text/html"/>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <c:set var="title">
+        <c:out value="Sessions for User: ${messageUser.email}"/>
+    </c:set>
+    <head>
+        <title>${title}</title>
+    </head>
+    <body>
+        <c:set var="tab" value="sessions" scope="request"/>
+        <h1>${title}</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Session ID</th>
+                    <th>Expire Session</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${sessionDetails}" var="sessionInfo">
+                    <tr>
+                        <td><c:out value="${sessionInfo.principal.lastName}"/>, <c:out value="${sessionInfo.principal.firstName}"/></td>
+                        <td><c:out value="${sessionInfo.principal.email}"/></td>
+                        <td><c:out value="${sessionInfo.sessionId}"/></td>
+                        <c:url value="/sessions/${sessionInfo.sessionId}" var="expireSessionUrl"/>
+                        <td>
+                            <form action="${expireSessionUrl}" method="post">
+                                <input type="hidden" name="_method" value="delete"/>
+                                <input type="submit" value="Expire Session"/>
+                            </form>
+                        </td>
+                   </tr>
+               </c:forEach>
+           </tbody>
+        </table>
+    </body>
+</html>
+</jsp:root>

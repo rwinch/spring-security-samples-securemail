@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+input {
+    padding: .25em;
+}
+h1 {
+    margin: .25em 0;
+}
+#header h1 {
+    margin: 0;
+}
+label:after {
+    content: ':';
+}
+#nav li:after {
+    content: ' |';
+}
+#nav li:last-child:after {
+    content: '';
+}
+legend, h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+fieldset {
+    border-width: 0;
+}
+body, #header-container {
+    background-color: #EEEEEE;
+}
+table {
+    width: 100%;
+}
+td {
+    padding: .25em;
+    border: 1px solid #367C2B;
+}
+
+a, th, #nav-container, li.tab.selected a {
+    color: #FFFFFF;
+}
+#header {
+    background: url("../img/springsource.png") no-repeat right center;
+}
+#header, #nav, #footer-container, .nav li {
+    padding: .25em;
+}
+th, #nav-container {
+    background-color: #367C2B;
+}
+#header, #content, #footer, .nav {
+    margin: 0 auto;
+    width: 65%;
+}
+#content-container {
+    margin: 1em;
+}
+#sub-nav ul {
+    padding: .25em 5px;
+}
+
+li.tab {
+    border-color: #367C2B;
+    border-width: 1px 1px medium;
+    border-style: solid solid none;
+    background-color: #FFFFFF;
+    margin-left: .25em;
+}
+
+li.selected {
+    border-color: #367C2B;
+    border-width: 1px 1px medium;
+    border-style: solid solid none;
+    background-color: #367C2B;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+label {
+    display: block;
+    margin: .5em .5em .5em 0;
+}
+label.cb {
+    display: inline-block;
+}
+div#message {
+    margin-top: 1em;
+}
+textarea#message {
+    width: 95%;
+    height: 10em;
+}
+input[type=text] {
+    width: 25em;
+}
+#submit {
+    margin-top: 1em;
+}
+#content-container div.nav {
+    background-color: #FFFFFF;
+    margin-top: 1em;
+}
+td a {
+    color: #367C2B;
+}
+li.tab a {
+    color: #367C2B;
+    text-decoration: none;
+}
+#content {
+    background-color: #367C2B;
+    padding: 1em;
+}
+#sub-content {
+    background-color: #FFFFFF;
+    padding: 1em;
+}
+#nav {
+    text-align: right;
+}
+
+.nav li {
+    display: inline;
+    list-style-type: none;
+}
+.errors {
+    color: red;
+}
+.msg {
+    text-align: center;
+    font-weight: bold;
+}
+#footer-container {
+    text-align: center;
+    background-color: #367C2B;
+}

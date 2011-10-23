@@ -1,0 +1,35 @@
+<jsp:root
+   xmlns:jsp="http://java.sun.com/JSP/Page"
+   xmlns:spring="http://www.springframework.org/tags"
+   xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:form="http://www.springframework.org/tags/form"
+   version="2.0">
+   <jsp:directive.page language="java" contentType="text/html"/>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>Logged In Users</title>
+    </head>
+    <body>
+        <c:set var="tab" value="sessions" scope="request"/>
+        <h1>Logged In Users</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${principals}" var="principal">
+                <tr>
+                    <td><c:out value="${principal.lastName}"/>, <c:out value="${principal.firstName}"/></td>
+                    <spring:url var="sessionUrl" value="/users/{id}/sessions">
+                        <spring:param name="id" value="${principal.id}"/>
+                    </spring:url>
+                    <td><a href="${sessionUrl}">Details</a></td>
+                   </tr>
+               </c:forEach>
+               </tbody>
+        </table>
+    </body>
+</html>
+</jsp:root>
