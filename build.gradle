@@ -2,6 +2,7 @@ apply plugin: 'war'
 apply plugin: 'jetty'
 apply plugin: 'groovy'
 apply plugin: 'eclipse'
+apply plugin: 'scala'
 
 slf4jVersion = '1.6.3'
 jettyVersion = '7.1.6.v20100715'
@@ -42,6 +43,9 @@ eclipseWtpComponent {
     contextPath = 'mail'
 }
 dependencies {
+    scalaTools 'org.scala-lang:scala-compiler:2.9.1',
+               'org.scala-lang:scala-library:2.9.1'
+
     groovy 'org.codehaus.groovy:groovy:1.8.2'
 
     providedCompile 'javax.servlet:servlet-api:2.5@jar'
@@ -57,7 +61,10 @@ dependencies {
             "javax.validation:validation-api:1.0.0.GA",
             "org.hibernate:hibernate-validator:4.2.0.Final",
             "org.springframework.security:spring-security-core:$springSecurityVersion",
-            "org.springframework.security:spring-security-taglibs:$springSecurityVersion"
+            "org.springframework.security:spring-security-taglibs:$springSecurityVersion",
+            'org.scala-lang:scala-library:2.9.1',
+            fileTree(dir: 'libs', include: '*.jar')
+
 
     runtime "opensymphony:sitemesh:2.4.2",
             "com.h2database:h2:1.3.160",
