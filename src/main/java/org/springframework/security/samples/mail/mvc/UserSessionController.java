@@ -87,7 +87,7 @@ public class UserSessionController {
             if (user.getId().equals(userId)) {
                 List<SessionInformation> sessionDetails = this.sessionRegistry.getAllSessions(principal, false);
                 return new ModelAndView("user/session/details", "sessionDetails", sessionDetails).addObject(
-                        "messageUser", user);
+                        "mailUser", user);
             }
         }
         throw new NotFoundException("Couldn't find sessions for user "+userId);

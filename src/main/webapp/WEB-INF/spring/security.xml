@@ -15,12 +15,11 @@
     <http pattern="/resources/**" security="none"/>
 
     <http use-expressions="true" auto-config="true" access-denied-page="/errors/403">
-        <intercept-url pattern="/login*" access="permitAll"/>
-        <intercept-url pattern="/logout*" access="permitAll"/>
-        <intercept-url pattern="/errors/*" access="permitAll"/>
         <intercept-url pattern="/users/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/sessions/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/signup*" access="permitAll"/>
+        <intercept-url pattern="/login*" access="permitAll"/>
+        <intercept-url pattern="/logout*" access="permitAll"/>
         <intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
         <form-login login-page="/login" authentication-failure-url="/login?error" default-target-url="/default"/>
         <logout logout-url="/logout" logout-success-url="/login?logout"/>
@@ -32,6 +31,11 @@
     <authentication-manager>
         <authentication-provider user-service-ref="mailUserDetailsService"/>
         <authentication-provider ref="mailUserAuthenticationProvider"/>
+        <authentication-provider>
+            <jdbc-user-service data-source-ref="dataSource"
+                users-by-username-query="select email, password, true from message_user where email = ?"
+                authorities-by-username-query="select email, 'ROLE_USER' from message_user where email = ?"/>
+        </authentication-provider>
         <authentication-provider>
             <user-service id="userDetailsService">
                 <user name="rob@example.org" password="penguin" authorities="ROLE_USER"/>

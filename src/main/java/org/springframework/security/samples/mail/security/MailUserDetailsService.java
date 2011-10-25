@@ -68,11 +68,11 @@ public class MailUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("Could not find user with username '" + username + "'");
         }
-        return new MessageUserDetails(user);
+        return new MailUserDetails(user);
     }
 
     /**
-     * {@link MessageUserDetails} implements both {@link UserDetails} (so that
+     * {@link MailUserDetails} implements both {@link UserDetails} (so that
      * Spring Security can treat it as a {@link UserDetails}) and
      * {@link MailUser} (so that the {@link Authentication}'s principal can be
      * cast to a {@link MailUser} which provides the application access to
@@ -87,21 +87,21 @@ public class MailUserDetailsService implements UserDetailsService {
      * @author Rob Winch
      *
      */
-    private static class MessageUserDetails extends MailUser implements UserDetails {
+    private static class MailUserDetails extends MailUser implements UserDetails {
         private final List<GrantedAuthority> USER_ROLES = Collections.unmodifiableList(AuthorityUtils
                 .createAuthorityList("ROLE_USER"));
         private final List<GrantedAuthority> ADMIN_ROLES = Collections.unmodifiableList(AuthorityUtils
                 .createAuthorityList("ROLE_USER", "ROLE_ADMIN"));
 
         /**
-         * Creates a new {@link MessageUserDetails}
+         * Creates a new {@link MailUserDetails}
          *
          * @param user
          *            the {@link MailUser} to use. Cannot be null.
          * @throws IllegalArgumentException
          *             if user is null.
          */
-        public MessageUserDetails(MailUser user) {
+        public MailUserDetails(MailUser user) {
             if (user == null) {
                 throw new IllegalArgumentException("user cannot be null");
             }

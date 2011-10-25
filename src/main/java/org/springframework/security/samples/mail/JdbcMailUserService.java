@@ -49,10 +49,10 @@ public class JdbcMailUserService implements MailUserService {
     public MailUser getUser(int id) {
         try {
             return this.jdbcTemplate.queryForObject(
-                    "select id, email, password, firstName, lastName from message_user where id = ?",
-                    MESSAGE_USER_ROWMAPPER, id);
+                    "select id, email, password, firstName, lastName from mail_user where id = ?",
+                    USER_ROWMAPPER, id);
         } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundException("Could not find MessageUser with id " + id, e);
+            throw new NotFoundException("Could not find MailUser with id " + id, e);
         }
     }
 
@@ -67,7 +67,7 @@ public class JdbcMailUserService implements MailUserService {
         this.jdbcTemplate.update(new PreparedStatementCreator() {
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement ps = connection.prepareStatement(
-                        "insert into message_user (email, password, firstName, lastName) values (?, ?, ?, ?)",
+                        "insert into mail_user (email, password, firstName, lastName) values (?, ?, ?, ?)",
                         new String[] { "id" });
                 ps.setString(1, mailUser.getEmail());
                 ps.setString(2, mailUser.getPassword());
@@ -85,8 +85,8 @@ public class JdbcMailUserService implements MailUserService {
         }
         try {
             return this.jdbcTemplate.queryForObject(
-                    "select id, email, password, firstName, lastName from message_user where email = ?",
-                    MESSAGE_USER_ROWMAPPER, email);
+                    "select id, email, password, firstName, lastName from mail_user where email = ?",
+                    USER_ROWMAPPER, email);
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
@@ -99,10 +99,10 @@ public class JdbcMailUserService implements MailUserService {
      * @author Rob Winch
      *
      */
-    static final class MessageUserRowMapper implements RowMapper<MailUser> {
+    static final class MailUserRowMapper implements RowMapper<MailUser> {
         private final String prefix;
 
-        public MessageUserRowMapper(String prefix) {
+        public MailUserRowMapper(String prefix) {
             if (prefix == null) {
                 throw new IllegalArgumentException("prefix cannot be null");
             }
@@ -110,18 +110,18 @@ public class JdbcMailUserService implements MailUserService {
         }
 
         public MailUser mapRow(ResultSet rs, int rowNum) throws SQLException {
-            MailUser messageUser = new MailUser();
-            messageUser.setId(rs.getInt(this.prefix + "id"));
-            messageUser.setEmail(rs.getString(this.prefix + "email"));
-            messageUser.setPassword(rs.getString(this.prefix + "password"));
-            messageUser.setFirstName(rs.getString(this.prefix + "firstName"));
-            messageUser.setLastName(rs.getString(this.prefix + "lastName"));
-            return messageUser;
+            MailUser mailUser = new MailUser();
+            mailUser.setId(rs.getInt(this.prefix + "id"));
+            mailUser.setEmail(rs.getString(this.prefix + "email"));
+            mailUser.setPassword(rs.getString(this.prefix + "password"));
+            mailUser.setFirstName(rs.getString(this.prefix + "firstName"));
+            mailUser.setLastName(rs.getString(this.prefix + "lastName"));
+            return mailUser;
         }
     }
 
     /**
      * Maps {@link MailUser}'s for the {@link JdbcMailUserService}.
      */
-    private static final RowMapper<MailUser> MESSAGE_USER_ROWMAPPER = new MessageUserRowMapper("message_user.");
+    private static final RowMapper<MailUser> USER_ROWMAPPER = new MailUserRowMapper("mail_user.");
 }

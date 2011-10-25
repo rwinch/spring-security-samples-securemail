@@ -77,7 +77,7 @@ public class JdbcMessageServiceTest {
         fromUser.setFirstName("Luke");
         fromUser.setLastName("Taylor");
         message.setFromUser(fromUser);
-        message.setToUser(JdbcMessageUserServiceTest.getExistingUser());
+        message.setToUser(JdbcMailUserServiceTest.getExistingUser());
         return message;
     }
 
@@ -90,9 +90,9 @@ public class JdbcMessageServiceTest {
         assertThat(actual.getSubject()).isEqualTo(expected.getSubject());
         assertThat(actual.getMessage()).isEqualTo(expected.getMessage());
         MailUser fromUser = actual.getFromUser();
-        JdbcMessageUserServiceTest.assertEquals(expected.getFromUser(),
+        JdbcMailUserServiceTest.assertEquals(expected.getFromUser(),
                 fromUser);
-        JdbcMessageUserServiceTest.assertEquals(expected.getToUser(),
+        JdbcMailUserServiceTest.assertEquals(expected.getToUser(),
                 actual.getToUser());
     }
 }

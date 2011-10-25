@@ -17,9 +17,9 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @TransactionConfiguration
 @ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/*.xml")
-public class JdbcMessageUserServiceTest {
+public class JdbcMailUserServiceTest {
     @Autowired
-    private MailUserService messageUserRepository;
+    private MailUserService userService;
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -29,9 +29,9 @@ public class JdbcMessageUserServiceTest {
     }
 
     @Test
-    public void getMessageUser() {
+    public void getUser() {
         MailUser expected = getExistingUser();
-        MailUser user = messageUserRepository.getUser(expected
+        MailUser user = userService.getUser(expected
                 .getId());
         assertThat(user).isNotNull();
         assertThat(user.getId()).isEqualTo(expected.getId());
@@ -42,38 +42,38 @@ public class JdbcMessageUserServiceTest {
     }
 
     @Test(expected = NotFoundException.class)
-    public void getMessageUserNotFound() {
-        messageUserRepository.getUser(-1);
+    public void getUserNotFound() {
+        userService.getUser(-1);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void createMessageUserNull() {
-        messageUserRepository.createUser(null);
+    public void createUserNull() {
+        userService.createUser(null);
     }
 
     @Test
-    public void createMessageUser() {
+    public void createUser() {
         MailUser toSave = new MailUser();
         toSave.setEmail("new@nowhere.com");
         toSave.setFirstName("New");
         toSave.setLastName("User");
         toSave.setPassword("New Password");
         int messageCount = countMessageRows();
-        int id = messageUserRepository.createUser(toSave);
+        int id = userService.createUser(toSave);
         assertThat(countMessageRows()).isEqualTo(messageCount + 1);
-        MailUser saved = messageUserRepository.findUserByEmail(toSave
+        MailUser saved = userService.findUserByEmail(toSave
                 .getEmail());
         assertThat(saved.getId()).isNotNull();
         toSave.setId(saved.getId());
         assertEquals(toSave, saved);
-        assertEquals(toSave, messageUserRepository.getUser(id));
+        assertEquals(toSave, userService.getUser(id));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void createMessageUserIdSpecified() {
+    public void createUserIdSpecified() {
         MailUser toSave = new MailUser();
         toSave.setId(100);
-        messageUserRepository.createUser(toSave);
+        userService.createUser(toSave);
     }
 
     static void assertEquals(MailUser expected, MailUser actual) {
@@ -85,16 +85,16 @@ public class JdbcMessageUserServiceTest {
     }
 
     static MailUser getExistingUser() {
-        MailUser messageUser = new MailUser();
-        messageUser.setId(1);
-        messageUser.setEmail("rob@example.org");
-        messageUser.setFirstName("Rob");
-        messageUser.setLastName("Winch");
-        messageUser.setPassword("penguin");
-        return messageUser;
+        MailUser mailUser = new MailUser();
+        mailUser.setId(1);
+        mailUser.setEmail("rob@example.org");
+        mailUser.setFirstName("Rob");
+        mailUser.setLastName("Winch");
+        mailUser.setPassword("penguin");
+        return mailUser;
     }
 
     private int countMessageRows() {
-        return jdbcTemplate.queryForInt("select count(1) from message_user");
+        return jdbcTemplate.queryForInt("select count(1) from mail_user");
     }
 }

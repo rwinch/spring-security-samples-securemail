@@ -55,7 +55,7 @@ public class JdbcMessageService implements MessageService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @PostAuthorize("hasPermission(returnObject,'read')")
+    @PostAuthorize("returnObject.fromUser.id == principal.id or returnObject.toUser.id == principal.id")
     public Message getMessage(int id) {
         String messageQuery = MESSAGE_QUERY + " where m.id = ? and m.fromUser = fromUser.id and m.toUser = toUser.id";
         try {
@@ -119,7 +119,7 @@ public class JdbcMessageService implements MessageService {
     /**
      * The query for a message to be reused with different where clauses.
      */
-    private static final String MESSAGE_QUERY = "select m.id, m.subject, m.message, fromUser.id as from_id, fromUser.email as from_email, fromUser.password as from_password, fromUser.firstName as from_firstName, fromUser.lastName as from_lastName, toUser.id as to_id, toUser.email as to_email, toUser.password as to_password, toUser.firstName as to_firstName, toUser.lastName as to_lastName from message as m, message_user as fromUser, message_user as toUser";
-    private static RowMapper<MailUser> FROM_USER_ROWMAPPER = new JdbcMailUserService.MessageUserRowMapper("from_");
-    private static RowMapper<MailUser> TO_USER_ROWMAPPER = new JdbcMailUserService.MessageUserRowMapper("to_");
+    private static final String MESSAGE_QUERY = "select m.id, m.subject, m.message, fromUser.id as from_id, fromUser.email as from_email, fromUser.password as from_password, fromUser.firstName as from_firstName, fromUser.lastName as from_lastName, toUser.id as to_id, toUser.email as to_email, toUser.password as to_password, toUser.firstName as to_firstName, toUser.lastName as to_lastName from message as m, mail_user as fromUser, mail_user as toUser";
+    private static RowMapper<MailUser> FROM_USER_ROWMAPPER = new JdbcMailUserService.MailUserRowMapper("from_");
+    private static RowMapper<MailUser> TO_USER_ROWMAPPER = new JdbcMailUserService.MailUserRowMapper("to_");
 }
