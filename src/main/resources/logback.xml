@@ -11,4 +11,6 @@
   <root level="WARN">
     <appender-ref ref="STDOUT" />
   </root>
+
+  <logger name="org.springframework.security" level="DEBUG"/>
 </configuration>

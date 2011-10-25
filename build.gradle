@@ -48,7 +48,7 @@ dependencies {
 
     compile "org.springframework:spring-webmvc:$springVersion",
             "org.springframework:spring-jdbc:$springVersion",
-            "log4j:log4j:1.2.16",
+            'org.scala-lang:scala-library:2.9.1',
             "org.slf4j:slf4j-api:$slf4jVersion",
             "org.slf4j:log4j-over-slf4j:$slf4jVersion",
             "org.slf4j:jul-to-slf4j:$slf4jVersion",
@@ -79,7 +79,6 @@ dependencies {
         exclude group: 'org.codehaus.groovy', module: 'groovy-all'
     }
 }
-[configurations.runtime, configurations.default, configurations.testCompile, configurations.integrationTestCompile]*.exclude(module: 'commons-logging')
 
 task integrationTest(type: Test, dependsOn: [jar,jettyRunWar]) {
     testClassesDir = sourceSets.integrationTest.classesDir
