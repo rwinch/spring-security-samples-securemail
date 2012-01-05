@@ -6,15 +6,13 @@ apply plugin: 'scala'
 
 slf4jVersion = '1.6.3'
 jettyVersion = '7.1.6.v20100715'
-springVersion = "3.1.0.RC1"
-springSecurityVersion = '3.1.0.CI-SNAPSHOT'
+springVersion = "3.1.0.RELEASE"
+springSecurityVersion = '3.1.0.RELEASE'
 description = 'Spring Security Samples - SecureMail'
 version = '1.0.0.CI-SNAPSHOT'
 repositories {
     mavenLocal()
     mavenCentral()
-    mavenRepo urls: 'http://maven.springframework.org/milestone'
-    mavenRepo urls: 'http://maven.springframework.org/snapshot'
 }
 
 configurations {
