@@ -12,7 +12,7 @@ Login with rob@example.org / penguin or luke@example.com / lion
 Running SecureMail in Spring Tool Suite
 ======================
 
-1. http://www.springsource.com/downloads/sts[Download STS] I use 2.8.1.RELEASE
+1. Download STS http://www.springsource.com/downloads/sts I use 2.8.1.RELEASE
 2. Navigate to the Dashboard -> Extensions tab and install the following plugins:
    * Gradle Support
    * Groovy Eclipse
