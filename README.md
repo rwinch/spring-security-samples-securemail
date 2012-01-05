@@ -1,4 +1,4 @@
-Running SecureMail
+Running SecureMail with Gradle
 ======================
 
 1. Ensure you have java installed
@@ -8,3 +8,18 @@ Running SecureMail
 Browse to http://localhost:8080/mail/
 
 Login with rob@example.org / penguin or luke@example.com / lion
+
+Running SecureMail in Spring Tool Suite
+======================
+
+1. http://www.springsource.com/downloads/sts[Download STS] I use 2.8.1.RELEASE
+2. Navigate to the Dashboard -> Extensions tab and install the following plugins:
+   * Gradle Support
+   * Groovy Eclipse
+   * Scala IDE for Eclipse
+3. Import the Project with Gradle Eclipse plugin.
+   * File-> Import... -> Gradle Project
+   * Next >
+   * Build Model
+   * Ensure the project is selected and click Finish.
+4. Right click the project and click Run As -> Run on Server
